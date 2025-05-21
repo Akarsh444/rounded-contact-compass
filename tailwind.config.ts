@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -24,6 +25,12 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				ngo: {
+					primary: '#006699',
+					secondary: '#ff9933',
+					accent: '#e6f7ff',
+					dark: '#004466'
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -84,11 +91,17 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'shrink-pill': {
+					'0%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(0.9)' },
+					'100%': { transform: 'scale(1)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'shrink-pill': 'shrink-pill 0.3s ease-in-out'
 			}
 		}
 	},
