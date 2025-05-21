@@ -1,13 +1,14 @@
 
 import Header from "@/components/Header";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-[#1A1F2C] text-white">
+    <div className="min-h-screen flex flex-col">
       <Header />
       <div className="flex-grow">
-        {/* Empty main content area */}
+        <Contact />
       </div>
       <Footer />
     </div>
