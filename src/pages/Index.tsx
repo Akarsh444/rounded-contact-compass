@@ -1,5 +1,6 @@
 
 import Header from "@/components/Header";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -7,7 +8,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <div className="flex-grow">
-        {/* Main content space */}
+        <Contact />
       </div>
       <Footer />
     </div>
