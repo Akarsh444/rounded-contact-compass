@@ -27,8 +27,8 @@ const Header = () => {
       // Update active section based on scroll position
       const sections = document.querySelectorAll('section[id]');
       sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.offsetHeight;
+        const sectionTop = (section as HTMLElement).offsetTop - 100;
+        const sectionHeight = (section as HTMLElement).offsetHeight;
         if (position >= sectionTop && position < sectionTop + sectionHeight) {
           setActiveLink(`#${section.getAttribute('id') || ''}`);
         }
