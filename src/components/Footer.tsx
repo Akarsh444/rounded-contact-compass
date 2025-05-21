@@ -1,4 +1,6 @@
 
+import { Facebook, Instagram, Linkedin, Youtube, X } from "lucide-react";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
@@ -56,6 +58,23 @@ const Footer = () => {
         
         <div className="border-t border-gray-700 pt-6 text-center text-gray-300">
           <p>&copy; {currentYear} Prashraya. All rights reserved.</p>
+          <div className="mt-4 flex justify-center space-x-4">
+            <a href="#" className="hover:text-white transition-colors">
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              <Instagram className="h-5 w-5" />
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              <Linkedin className="h-5 w-5" />
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              <Youtube className="h-5 w-5" />
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              <X className="h-5 w-5" />
+            </a>
+          </div>
           <div className="mt-2">
             <a href="#" className="mx-2 hover:text-white">Privacy Policy</a>
             <span className="text-gray-500">|</span>
