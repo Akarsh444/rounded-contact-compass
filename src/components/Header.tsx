@@ -1,19 +1,27 @@
 
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { name: 'Home', href: '#home' },
+  { name: 'Home', href: '/' },
   { name: 'About', href: '#about' },
   { name: 'Services', href: '#services' },
   { name: 'Gallery', href: '#gallery' },
+  { name: 'Our Team', href: '/our-team' },
   { name: 'Contact', href: '#contact' },
 ];
 
 const Header = () => {
-  const [activeLink, setActiveLink] = useState('#home');
+  const [activeLink, setActiveLink] = useState('/');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    setActiveLink(location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,30 +32,46 @@ const Header = () => {
         setScrolled(false);
       }
 
-      // Update active section based on scroll position
-      const sections = document.querySelectorAll('section[id]');
-      sections.forEach(section => {
-        const htmlElement = section as HTMLElement;
-        const sectionTop = htmlElement.offsetTop - 100;
-        const sectionHeight = htmlElement.offsetHeight;
-        if (position >= sectionTop && position < sectionTop + sectionHeight) {
-          setActiveLink(`#${section.getAttribute('id') || ''}`);
-        }
-      });
+      // Update active section based on scroll position for hash links
+      if (location.pathname === '/') {
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => {
+          const htmlElement = section as HTMLElement;
+          const sectionTop = htmlElement.offsetTop - 100;
+          const sectionHeight = htmlElement.offsetHeight;
+          if (position >= sectionTop && position < sectionTop + sectionHeight) {
+            setActiveLink(`#${section.getAttribute('id') || ''}`);
+          }
+        });
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const handleNavClick = (href: string) => {
     setActiveLink(href);
     setMobileMenuOpen(false);
     
-    // Smooth scroll to the section
-    document.querySelector(href)?.scrollIntoView({
-      behavior: 'smooth'
-    });
+    if (href.startsWith('#')) {
+      // Navigate to home page first if not already there
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          document.querySelector(href)?.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }, 100);
+      } else {
+        document.querySelector(href)?.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    } else {
+      // Navigate to the page
+      navigate(href);
+    }
   };
 
   return (
@@ -56,7 +80,7 @@ const Header = () => {
       scrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
     )}>
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center cursor-pointer" onClick={() => navigate('/')}>
           <div className="overflow-hidden rounded-full w-12 h-12 border-2 border-ngo-primary">
             <img 
               src="https://prashraya.org/wp-content/uploads/elementor/thumbs/354150415_220248024272103_8189691252379910077_n-qtir2fw9zqtc7qrxft7est9yuk34qnuch8ihrepctc.jpg" 
