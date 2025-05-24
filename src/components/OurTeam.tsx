@@ -1,6 +1,6 @@
 
-import { Facebook, Instagram, Linkedin, Twitter, Mail, ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 const teamMembers = [
   {
@@ -222,61 +222,55 @@ const OurTeam = ({ onMemberClick }: { onMemberClick?: (member: typeof teamMember
         opacity: 1
       };
     } else if (absIndex === 1) {
-      const translateX = diff > 0 ? '100px' : '-100px';
+      const translateX = diff > 0 ? '320px' : '-320px';
       return {
-        transform: `translateX(${translateX}) scale(0.9)`,
+        transform: `translateX(${translateX}) scale(0.85)`,
         zIndex: 20,
-        opacity: 0.7
+        opacity: 0.6
       };
     } else if (absIndex === 2) {
-      const translateX = diff > 0 ? '150px' : '-150px';
+      const translateX = diff > 0 ? '480px' : '-480px';
       return {
-        transform: `translateX(${translateX}) scale(0.8)`,
+        transform: `translateX(${translateX}) scale(0.7)`,
         zIndex: 10,
-        opacity: 0.4
+        opacity: 0.3
       };
     } else {
       return {
-        transform: 'translateX(200px) scale(0.7)',
+        transform: 'translateX(640px) scale(0.6)',
         zIndex: 0,
         opacity: 0
       };
     }
   };
 
+  const currentMember = teamMembers[currentIndex];
+
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-teal-50/40 overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute top-20 right-10 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 left-10 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl"></div>
-      
-      <div className="container mx-auto px-4 py-20 relative z-10">
-        {/* Header */}
-        <div className="text-left mb-20 max-w-2xl">
-          <h1 className="text-6xl md:text-7xl font-light text-gray-900 mb-4 tracking-tight">
-            MEET
-          </h1>
-          <h2 className="text-6xl md:text-7xl font-light text-gray-400 mb-8 tracking-tight">
-            OUR
-          </h2>
-          <h3 className="text-6xl md:text-7xl font-light text-gray-900 mb-8 tracking-tight">
-            TEAM
-          </h3>
-          <p className="text-lg text-gray-600 leading-relaxed">
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+      <div className="container mx-auto px-8 py-16 grid grid-cols-2 gap-16 min-h-screen items-center">
+        {/* Left side - Title and description */}
+        <div className="space-y-8">
+          <div>
+            <h1 className="text-8xl font-light text-gray-900 leading-none mb-2">
+              MEET
+            </h1>
+            <h2 className="text-8xl font-light text-gray-400 leading-none mb-2">
+              OUR
+            </h2>
+            <h3 className="text-8xl font-light text-gray-900 leading-none">
+              TEAM
+            </h3>
+          </div>
+          
+          <p className="text-lg text-gray-600 leading-relaxed max-w-md">
             When you need dedicated and effective social impact services, you can trust our team at Prashraya NGO.
           </p>
         </div>
 
-        {/* Carousel */}
-        <div className="relative flex items-center justify-center min-h-[600px]">
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 z-40 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-gray-50"
-          >
-            <ChevronLeft className="w-6 h-6 text-gray-600" />
-          </button>
-
-          <div className="relative w-full max-w-md mx-auto">
+        {/* Right side - Team member cards */}
+        <div className="relative h-full flex items-center justify-center">
+          <div className="relative w-80 h-96">
             {teamMembers.map((member, index) => (
               <div
                 key={member.id}
@@ -284,32 +278,27 @@ const OurTeam = ({ onMemberClick }: { onMemberClick?: (member: typeof teamMember
                 style={getCardStyle(index)}
                 onClick={() => onMemberClick?.(member)}
               >
-                <div className="bg-white rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
-                  <div className="aspect-[3/4] overflow-hidden">
+                <div className="w-80 h-96 bg-white rounded-lg overflow-hidden shadow-xl">
+                  <div className="h-64 overflow-hidden">
                     <img
                       src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-8 text-center">
-                    <h3 className="text-2xl font-light text-gray-900 mb-2">
+                  <div className="p-6 text-center">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-1">
                       {member.name}
                     </h3>
-                    <div className="space-y-2">
-                      <p className="text-sm font-medium text-teal-600 uppercase tracking-wider">
-                        {member.role}
-                      </p>
-                      <div className="flex justify-center gap-2 flex-wrap">
-                        {member.specializations.map((spec, idx) => (
-                          <span
-                            key={idx}
-                            className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full"
-                          >
-                            {spec}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="flex justify-center gap-2 mb-2">
+                      {member.specializations.map((spec, idx) => (
+                        <span
+                          key={idx}
+                          className="text-xs font-medium text-teal-700 uppercase tracking-wider"
+                        >
+                          {spec}{idx < member.specializations.length - 1 && ' • '}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -317,28 +306,36 @@ const OurTeam = ({ onMemberClick }: { onMemberClick?: (member: typeof teamMember
             ))}
           </div>
 
+          {/* Navigation arrows */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow z-40"
+          >
+            <ChevronLeft className="w-6 h-6 text-gray-600" />
+          </button>
+
           <button
             onClick={nextSlide}
-            className="absolute right-0 z-40 p-3 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-gray-50"
+            className="absolute right-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow z-40"
           >
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </button>
         </div>
-
-        {/* Dots indicator */}
-        <div className="flex justify-center mt-12 space-x-2">
-          {teamMembers.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? 'bg-teal-600 w-8' : 'bg-gray-300'
-              }`}
-            />
-          ))}
-        </div>
       </div>
-    </section>
+
+      {/* Dots indicator at bottom */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2">
+        {teamMembers.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentIndex ? 'bg-teal-600 w-8' : 'bg-gray-300'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

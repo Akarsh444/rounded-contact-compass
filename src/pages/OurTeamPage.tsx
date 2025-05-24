@@ -2,7 +2,6 @@
 import Header from "@/components/Header";
 import OurTeam from "@/components/OurTeam";
 import TeamMemberProfile from "@/components/TeamMemberProfile";
-import Footer from "@/components/Footer";
 import { useState } from "react";
 
 interface TeamMember {
@@ -33,7 +32,7 @@ const OurTeamPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       <div className="flex-grow pt-20">
         {selectedMember ? (
@@ -42,7 +41,6 @@ const OurTeamPage = () => {
           <OurTeam onMemberClick={handleMemberClick} />
         )}
       </div>
-      <Footer />
     </div>
   );
 };
